@@ -1,0 +1,28 @@
+<idea-plugin>
+	<id>com.finanteq.plugins.idea.cucumber-kotlin-idea-plugin</id>
+	<name>Cucumber for Kotlin</name>
+	<vendor email="lukasz.suski@finanteq.com" url="https://finanteq.com/">Finanteq</vendor>
+
+	<description><![CDATA[
+   This plugin enables <a href="https://cucumber.io/">Cucumber</a> support with step definitions written in Kotlin.
+    ]]></description>
+
+	<idea-version since-build="171.0" />
+
+	<depends>cucumber-java</depends>
+	<depends>org.jetbrains.kotlin</depends>
+
+	<extensions defaultExtensionNs="com.intellij">
+
+		<referencesSearch implementation="com.finanteq.plugins.idea.cucumber.kotlin.CucumberKotlinStepDefinitionSearch" />
+		<methodReferencesSearch implementation="com.finanteq.plugins.idea.cucumber.kotlin.CucumberKotlinMethodUsageSearcher" />
+
+		<projectService serviceInterface="org.jetbrains.plugins.cucumber.steps.CucumberStepsIndex" overrides="true" serviceImplementation="com.finanteq.plugins.idea.cucumber.kotlin.CucumberKotlinStepsIndex" />
+
+	</extensions>
+	<extensions defaultExtensionNs="org.jetbrains.plugins.cucumber.steps">
+		<cucumberJvmExtensionPoint implementation="com.finanteq.plugins.idea.cucumber.kotlin.CucumberKotlinExtension" />
+	</extensions>
+
+	<actions></actions>
+</idea-plugin>
