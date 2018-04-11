@@ -18,10 +18,14 @@
 
 		<projectService serviceInterface="org.jetbrains.plugins.cucumber.steps.CucumberStepsIndex" overrides="true" serviceImplementation="com.finanteq.plugins.idea.cucumber.kotlin.CucumberKotlinStepsIndex" />
 
+		<intentionAction id="generate-table-class" factoryClass="com.finanteq.plugins.idea.cucumber.kotlin.GenerateTableClassIntentionActionFactory" />
+
 	</extensions>
 	<extensions defaultExtensionNs="org.jetbrains.plugins.cucumber.steps">
 		<cucumberJvmExtensionPoint implementation="com.finanteq.plugins.idea.cucumber.kotlin.CucumberKotlinExtension" />
 	</extensions>
 
-	<actions></actions>
+	<actions>
+
+	</actions>
 </idea-plugin>
