@@ -2,6 +2,7 @@ package com.finanteq.plugins.idea.cucumber.kotlin
 
 import com.intellij.codeInsight.CodeInsightUtilCore
 import com.intellij.openapi.application.ApplicationManager
+import com.intellij.openapi.editor.ScrollType
 import com.intellij.openapi.util.Computable
 import com.intellij.psi.PsiDirectory
 import com.intellij.psi.PsiFile
@@ -13,6 +14,8 @@ import gherkin.formatter.model.DataTableRow
 import gherkin.formatter.model.Step
 import org.jetbrains.kotlin.asJava.classes.KtLightClass
 import org.jetbrains.kotlin.asJava.elements.FakeFileForLightClass
+import org.jetbrains.kotlin.idea.inspections.findExistingEditor
+import org.jetbrains.kotlin.idea.quickfix.moveCaretToEnd
 import org.jetbrains.kotlin.idea.refactoring.createKotlinFile
 import org.jetbrains.kotlin.psi.KtFile
 import org.jetbrains.kotlin.psi.KtNamedFunction
@@ -54,6 +57,9 @@ class KotlinStepDefinitionCreator : JavaStepDefinitionCreator() {
             (typeReference.typeElement as KtUserType).deleteQualifier()
         }
         addImport(ktFile, ImportPath.fromString(PendingException::class.java.name!!), factory)
+        val editor = addedElement.findExistingEditor()
+        addedElement.moveCaretToEnd(editor, project)
+        editor?.scrollingModel?.scrollToCaret(ScrollType.MAKE_VISIBLE)
         return true
     }
 
