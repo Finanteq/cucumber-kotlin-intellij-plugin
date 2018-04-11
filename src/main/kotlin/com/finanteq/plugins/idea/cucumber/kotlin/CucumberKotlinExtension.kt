@@ -10,6 +10,10 @@ import org.jetbrains.plugins.cucumber.java.CucumberJavaExtension
 
 class CucumberKotlinExtension : CucumberJavaExtension() {
 
+    override fun resolveStep(element: PsiElement): List<PsiElement> {
+        return emptyList()//extension Javy znajdzie co trzeba
+    }
+
     override fun getStepFileType(): BDDFrameworkType {
         return BDDFrameworkType(KotlinFileType.INSTANCE)
     }
