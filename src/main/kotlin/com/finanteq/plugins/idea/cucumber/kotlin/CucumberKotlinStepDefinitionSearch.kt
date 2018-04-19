@@ -20,8 +20,7 @@ import org.jetbrains.plugins.cucumber.psi.GherkinStep
 class CucumberKotlinStepDefinitionSearch : QueryExecutor<PsiReference, ReferencesSearch.SearchParameters> {
     override fun execute(queryParameters: ReferencesSearch.SearchParameters,
                          consumer: Processor<PsiReference>): Boolean {
-        val psiMethod = queryParameters.elementToSearch as? PsiMethod
-        val myElement = if (psiMethod != null) psiMethod else return true
+        val myElement = queryParameters.elementToSearch as? PsiMethod ?: return true
         val isStepDefinition = ReadAction.compute<Boolean, RuntimeException> { CucumberJavaUtil.isStepDefinition(myElement) }
         if (!isStepDefinition) {
             return true

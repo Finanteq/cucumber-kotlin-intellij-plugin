@@ -20,6 +20,8 @@
 
 		<intentionAction id="generate-table-class" factoryClass="com.finanteq.plugins.idea.cucumber.kotlin.GenerateTableClassIntentionActionFactory" />
 
+		<completion.contributor language="Gherkin" implementationClass="com.finanteq.plugins.idea.cucumber.kotlin.StepsCompletionContributor" />
+
 	</extensions>
 	<extensions defaultExtensionNs="org.jetbrains.plugins.cucumber.steps">
 		<cucumberJvmExtensionPoint implementation="com.finanteq.plugins.idea.cucumber.kotlin.CucumberKotlinExtension" />
