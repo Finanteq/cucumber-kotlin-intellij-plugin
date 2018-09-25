@@ -18,8 +18,9 @@ import org.jetbrains.plugins.cucumber.psi.GherkinFileType
 import org.jetbrains.plugins.cucumber.psi.GherkinStep
 
 class CucumberKotlinStepDefinitionSearch : QueryExecutor<PsiReference, ReferencesSearch.SearchParameters> {
+
     override fun execute(queryParameters: ReferencesSearch.SearchParameters,
-                         consumer: Processor<PsiReference>): Boolean {
+                         consumer: Processor<in PsiReference>): Boolean {
         val myElement = queryParameters.elementToSearch as? PsiMethod ?: return true
         val isStepDefinition = ReadAction.compute<Boolean, RuntimeException> { CucumberJavaUtil.isStepDefinition(myElement) }
         if (!isStepDefinition) {
@@ -58,7 +59,7 @@ class FasterGherkinSearchScope(baseScope: GlobalSearchScope) : DelegatingGlobalS
 }
 
 private class FasterMyReferenceCheckingProcessor(
-        val myConsumer: Processor<PsiReference>,
+        val myConsumer: Processor<in PsiReference>,
         val regex: Regex) : TextOccurenceProcessor {
 
     override fun execute(element: PsiElement, offsetInElement: Int): Boolean {

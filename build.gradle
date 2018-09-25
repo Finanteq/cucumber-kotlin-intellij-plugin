@@ -2,12 +2,12 @@ buildscript {
 }
 
 plugins {
-    id 'org.jetbrains.intellij' version '0.3.1'
-    id "org.jetbrains.kotlin.jvm" version "1.2.31"
+    id 'org.jetbrains.intellij' version '0.3.11'
+    id "org.jetbrains.kotlin.jvm" version "1.2.71"
     id 'maven'
 }
 group 'com.finanteq.plugins.idea'
-version '1.2'
+version '1.3'
 
 sourceCompatibility = 1.8
 
@@ -26,8 +26,8 @@ compileTestKotlin {
     kotlinOptions.jvmTarget = "1.8"
 }
 intellij {
-    version '2017.3.3'
-    plugins 'cucumber-java:173.4301', 'gherkin:173.3302', 'kotlin'
+    version '2018.2.4'
+    plugins 'cucumber-java:182.3934', 'gherkin:182.3933', 'kotlin'
     updateSinceUntilBuild false
     sameSinceUntilBuild false
 }

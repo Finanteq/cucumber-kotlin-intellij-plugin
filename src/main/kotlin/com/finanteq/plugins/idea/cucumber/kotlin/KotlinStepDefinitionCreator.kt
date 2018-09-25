@@ -5,6 +5,7 @@ import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.editor.ScrollType
 import com.intellij.openapi.util.Computable
 import com.intellij.psi.PsiDirectory
+import com.intellij.psi.PsiDocumentManager
 import com.intellij.psi.PsiFile
 import cucumber.api.PendingException
 import cucumber.runtime.snippets.CamelCaseConcatenator
@@ -39,6 +40,7 @@ class KotlinStepDefinitionCreator : JavaStepDefinitionCreator() {
         val project = file.project
 
         closeActiveTemplateBuilders(file)
+        PsiDocumentManager.getInstance(project).commitAllDocuments();
 
         val clazz = (ktFile.classes[0] as KtLightClass).kotlinOrigin!!
 
