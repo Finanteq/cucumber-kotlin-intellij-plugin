@@ -7,7 +7,7 @@
    This plugin enables <a href="https://cucumber.io/">Cucumber</a> support with step definitions written in Kotlin.
     ]]></description>
 
-	<idea-version since-build="171.0" />
+	<idea-version since-build="183.0" />
 
 	<depends>cucumber-java</depends>
 	<depends>org.jetbrains.kotlin</depends>
