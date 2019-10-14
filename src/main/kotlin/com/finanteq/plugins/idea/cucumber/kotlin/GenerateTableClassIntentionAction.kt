@@ -68,7 +68,7 @@ class GenerateTableClassIntentionAction : IntentionAction {
 }
 
 class GenerateTableClassIntentionActionFactory : ExtensionFactory {
-    override fun createInstance(factoryArgument: String?, implementationClass: String?): Any {
+    override fun createInstance(factoryArgument: String, implementationClass: String?): Any {
         return GenerateTableClassIntentionAction()
     }
 }

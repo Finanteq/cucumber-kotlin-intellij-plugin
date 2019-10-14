@@ -77,7 +77,7 @@ private class FasterMyReferenceCheckingProcessor(
      * @return true if element found and consumed
      */
     private fun executeInternal(referenceOwner: PsiElement): Boolean {
-        if (referenceOwner is GherkinStep && referenceOwner.stepName.matches(regex)) {
+        if (referenceOwner is GherkinStep && referenceOwner.name?.matches(regex) == true) {
             for (ref in referenceOwner.references) {
                 if (ref != null) {
                     if (!myConsumer.process(ref)) {

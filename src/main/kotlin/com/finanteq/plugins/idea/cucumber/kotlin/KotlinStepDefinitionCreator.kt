@@ -76,7 +76,7 @@ class KotlinStepDefinitionCreator : JavaStepDefinitionCreator() {
         val methodAnnotation = String.format("@%s.", annotationPackage)
 
         val rows = step.table?.dataRows?.mapIndexed { index, row -> DataTableRow(emptyList(), row.psiCells.map { it.text }, index) }
-        val cucumberStep = Step(ArrayList(), step.keyword.text, step.stepName, 0, rows, null)
+        val cucumberStep = Step(ArrayList(), step.keyword.text, step.name, 0, rows, null)
         val generator = SnippetGenerator(KotlinSnippet())
 
         val snippet = generator.getSnippet(cucumberStep, FunctionNameGenerator(CamelCaseConcatenator()))

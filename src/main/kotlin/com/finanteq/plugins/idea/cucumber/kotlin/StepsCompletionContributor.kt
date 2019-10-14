@@ -6,6 +6,7 @@ import com.intellij.openapi.roots.ContentIterator
 import com.intellij.openapi.roots.ModuleRootManager
 import com.intellij.patterns.PlatformPatterns.psiElement
 import com.intellij.psi.PsiFile
+import com.intellij.psi.search.GlobalSearchScope
 import com.intellij.util.ProcessingContext
 import org.jetbrains.kotlin.idea.refactoring.toPsiFile
 import org.jetbrains.kotlin.idea.util.projectStructure.module
@@ -32,21 +33,18 @@ class StepsCompletionContributor : CompletionContributor() {
 
         val module = file.module!!
         val fileIndex = ModuleRootManager.getInstance(module).fileIndex
-        val moduleContentScope = module.moduleContentScope
+        val moduleContentScope = GlobalSearchScope.getScopeRestrictedByFileTypes(module.moduleContentScope, GherkinFileType.INSTANCE)
         fileIndex.iterateContent(ContentIterator {
 
-            if (it.fileType is GherkinFileType) {
+            val gherkinFile = it.toPsiFile(project) as? GherkinFile
 
-                val gherkinFile = it.toPsiFile(project) as? GherkinFile
-
-                gherkinFile?.also {
-                    it.features.forEach {
-                        it.scenarios.forEach {
-                            it.steps.forEach {
-                                val stepName = it.stepName
-                                if (stepName != prefix) {
-                                    result.addElement(LookupElementBuilder.create(stepName))
-                                }
+            gherkinFile?.also {
+                it.features.forEach {
+                    it.scenarios.forEach {
+                        it.steps.forEach {
+                            val stepName = it.name
+                            if (stepName != null && stepName != prefix) {
+                                result.addElement(LookupElementBuilder.create(stepName))
                             }
                         }
                     }
