@@ -30,7 +30,8 @@ import java.util.*
 
 class KotlinStepDefinitionCreator : JavaStepDefinitionCreator() {
 
-    override fun createStepDefinition(step: GherkinStep, file: PsiFile): Boolean {
+    override fun createStepDefinition(step: GherkinStep, file: PsiFile, withTemplate: Boolean): Boolean {
+
         val ktFile = when (file) {
             is KtFile -> file
             is FakeFileForLightClass -> file.ktFile

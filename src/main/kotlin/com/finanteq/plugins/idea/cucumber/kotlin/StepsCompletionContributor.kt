@@ -8,7 +8,7 @@ import com.intellij.patterns.PlatformPatterns.psiElement
 import com.intellij.psi.PsiFile
 import com.intellij.psi.search.GlobalSearchScope
 import com.intellij.util.ProcessingContext
-import org.jetbrains.kotlin.idea.refactoring.toPsiFile
+import org.jetbrains.kotlin.idea.core.util.toPsiFile
 import org.jetbrains.kotlin.idea.util.projectStructure.module
 import org.jetbrains.plugins.cucumber.psi.GherkinElementTypes
 import org.jetbrains.plugins.cucumber.psi.GherkinFile
@@ -43,7 +43,7 @@ class StepsCompletionContributor : CompletionContributor() {
                     it.scenarios.forEach {
                         it.steps.forEach {
                             val stepName = it.name
-                            if (stepName != null && stepName != prefix) {
+                            if (stepName != prefix) {
                                 result.addElement(LookupElementBuilder.create(stepName))
                             }
                         }

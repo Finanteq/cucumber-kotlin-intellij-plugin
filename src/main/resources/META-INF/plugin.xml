@@ -7,7 +7,7 @@
    This plugin enables <a href="https://cucumber.io/">Cucumber</a> support with step definitions written in Kotlin.
     ]]></description>
 
-	<idea-version since-build="183.0" />
+	<idea-version since-build="192.0" />
 
 	<depends>cucumber-java</depends>
 	<depends>org.jetbrains.kotlin</depends>
@@ -18,7 +18,7 @@
 
 		<projectService serviceInterface="org.jetbrains.plugins.cucumber.steps.CucumberStepsIndex" overrides="true" serviceImplementation="com.finanteq.plugins.idea.cucumber.kotlin.CucumberKotlinStepsIndex" />
 
-		<intentionAction id="generate-table-class" factoryClass="com.finanteq.plugins.idea.cucumber.kotlin.GenerateTableClassIntentionActionFactory" />
+		<intentionAction id="generate-table-class" factoryClass="com.finanteq.plugins.idea.cucumber.kotlin.GenerateTableClassIntentionActionFactory" factoryArgument="" />
 
 		<completion.contributor language="Gherkin" implementationClass="com.finanteq.plugins.idea.cucumber.kotlin.StepsCompletionContributor" />
 
