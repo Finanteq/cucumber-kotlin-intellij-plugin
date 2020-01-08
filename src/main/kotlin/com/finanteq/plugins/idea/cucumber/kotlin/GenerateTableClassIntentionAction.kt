@@ -37,7 +37,6 @@ class GenerateTableClassIntentionAction : IntentionAction {
     override fun invoke(project: Project, editor: Editor, file: PsiFile) {
 
         val camelCaseStringConverter = CamelCaseStringConverter()
-        val columns = editor.getLineText().trim().split('|').map { it.trim() }.filter { it.isNotEmpty() }.map { camelCaseStringConverter.map(it) }
 
         val dialog = CreateClassDialog(project, text, "", "", CreateClassKind.CLASS, true, null)
         val get = dialog.showAndGet()
@@ -51,6 +50,16 @@ class GenerateTableClassIntentionAction : IntentionAction {
                 val clazz = factory.createClass("data class $className")
                 val constructor = factory.createPrimaryConstructor("")
                 val constructorBody = constructor.valueParameterList!!
+
+
+                val selectionModel = editor.selectionModel
+                val columns: List<String> = if (selectionModel.hasSelection()) {
+                    selectionModel.getSelectedText(true).orEmpty().split("\n").map { it.replace("|", "") }
+                } else {
+                    editor.getLineText().trim().split('|')
+                }.map { it.trim() }.filter { it.isNotEmpty() }.map { camelCaseStringConverter.map(it) }
+
+
                 columns.forEachIndexed { index, s ->
                     val property = factory.createProperty(s, "String", false)
                     constructorBody.addBefore(property, constructorBody.rightParenthesis)

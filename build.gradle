@@ -7,7 +7,7 @@ plugins {
     id 'maven-publish'
 }
 group 'com.finanteq.plugins.idea'
-version '1.7'
+version '1.8'
 
 sourceCompatibility = 1.8
 
