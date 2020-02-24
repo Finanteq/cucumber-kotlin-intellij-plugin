@@ -6,8 +6,8 @@ import com.intellij.openapi.editor.ScrollType
 import com.intellij.openapi.util.Computable
 import com.intellij.psi.PsiDirectory
 import com.intellij.psi.PsiDocumentManager
+import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
-import cucumber.api.PendingException
 import cucumber.runtime.snippets.CamelCaseConcatenator
 import cucumber.runtime.snippets.FunctionNameGenerator
 import cucumber.runtime.snippets.SnippetGenerator
@@ -23,6 +23,7 @@ import org.jetbrains.kotlin.psi.KtNamedFunction
 import org.jetbrains.kotlin.psi.KtPsiFactory
 import org.jetbrains.kotlin.psi.KtUserType
 import org.jetbrains.kotlin.resolve.ImportPath
+import org.jetbrains.plugins.cucumber.java.config.CucumberConfigUtil
 import org.jetbrains.plugins.cucumber.java.steps.AnnotationPackageProvider
 import org.jetbrains.plugins.cucumber.java.steps.JavaStepDefinitionCreator
 import org.jetbrains.plugins.cucumber.psi.GherkinStep
@@ -59,11 +60,17 @@ class KotlinStepDefinitionCreator : JavaStepDefinitionCreator() {
             addImport(ktFile, importPath, factory)
             (typeReference.typeElement as KtUserType).deleteQualifier()
         }
-        addImport(ktFile, ImportPath.fromString(PendingException::class.java.name!!), factory)
+        addImport(ktFile, ImportPath.fromString(getPendingExceptionFqn(ktFile)), factory)
         val editor = addedElement.findExistingEditor()
         addedElement.moveCaretToEnd(editor, project)
         editor?.scrollingModel?.scrollToCaret(ScrollType.MAKE_VISIBLE)
         return true
+    }
+
+    private fun getPendingExceptionFqn(psiElement: PsiElement): String {
+        val coreVersion = CucumberConfigUtil.getCucumberCoreVersion(psiElement)
+                ?: return "cucumber.api.PendingException"
+        return if (coreVersion >= CucumberConfigUtil.CUCUMBER_VERSION_4_5) "io.cucumber.java.PendingException" else "cucumber.api.PendingException"
     }
 
     private fun addImport(ktFile: KtFile, importPath: ImportPath, factory: KtPsiFactory) {
