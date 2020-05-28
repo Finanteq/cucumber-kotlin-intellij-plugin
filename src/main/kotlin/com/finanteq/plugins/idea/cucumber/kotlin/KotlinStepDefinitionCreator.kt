@@ -36,7 +36,7 @@ class KotlinStepDefinitionCreator : JavaStepDefinitionCreator() {
         val ktFile = when (file) {
             is KtFile -> file
             is FakeFileForLightClass -> file.ktFile
-            else -> return false
+            else -> return super.createStepDefinition(step, file, withTemplate)
         }
 
         val project = file.project

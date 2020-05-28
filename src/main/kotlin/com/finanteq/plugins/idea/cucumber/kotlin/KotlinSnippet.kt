@@ -11,7 +11,7 @@ class KotlinSnippet : Snippet {
     }
 
     override fun template(): String {
-        return "@{0}(\"{1}\")\n fun {2}({3} {5}) \'{\'\n    // {4}\n throw PendingException();\n\'}\'\n"
+        return "@{0}(\"{1}\")\n fun {2}({3} {5}) \'{\'\n    // {4}\n throw PendingException()\n\'}\'\n"
     }
 
     override fun arguments(argumentTypes: MutableList<Class<*>>): String {

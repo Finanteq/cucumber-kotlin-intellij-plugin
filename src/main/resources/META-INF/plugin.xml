@@ -7,30 +7,40 @@
    This plugin enables <a href="https://cucumber.io/">Cucumber</a> support with step definitions written in Kotlin.
     ]]></description>
 
-	<idea-version since-build="191.0" />
+	<idea-version since-build="200.0" />
 
 	<depends>cucumber-java</depends>
+	<depends>cucumber-groovy</depends>
 	<depends>org.jetbrains.kotlin</depends>
 
 	<extensions defaultExtensionNs="com.intellij">
 
-		<referencesSearch
-			implementation="com.finanteq.plugins.idea.cucumber.kotlin.CucumberKotlinStepDefinitionSearch" />
+		<!--		<referencesSearch-->
+		<!--			implementation="com.finanteq.plugins.idea.cucumber.kotlin.CucumberKotlinStepDefinitionSearch" />-->
 
-		<projectService serviceInterface="org.jetbrains.plugins.cucumber.steps.CucumberStepsIndex"
-			overrides="true"
-			serviceImplementation="com.finanteq.plugins.idea.cucumber.kotlin.CucumberKotlinStepsIndex" />
+		<!--		<projectService serviceInterface="org.jetbrains.plugins.cucumber.CucumberStepIndex"-->
+		<!--			overrides="true"-->
+		<!--			serviceImplementation="com.finanteq.plugins.idea.cucumber.kotlin.CucumberKotlinStepsIndex" />-->
 
-		<intentionAction id="generate-table-class" factoryClass="com.finanteq.plugins.idea.cucumber.kotlin.GenerateTableClassIntentionActionFactory" factoryArgument="" />
+		<intentionAction id="generate-table-class"
+			factoryClass="com.finanteq.plugins.idea.cucumber.kotlin.GenerateTableClassIntentionActionFactory"
+			factoryArgument="">
+			<className>
+				com.finanteq.plugins.idea.cucumber.kotlin.GenerateTableClassIntentionActionFactory
+			</className>
+		</intentionAction>
 
-		<completion.contributor language="Gherkin" implementationClass="com.finanteq.plugins.idea.cucumber.kotlin.StepsCompletionContributor" />
+		<completion.contributor language="Gherkin"
+			implementationClass="com.finanteq.plugins.idea.cucumber.kotlin.StepsCompletionContributor" />
+		<annotator language="Gherkin"
+			implementationClass="com.finanteq.plugins.idea.cucumber.kotlin.KotlinGherkinAnnotator"
+			order="first" />
 
 	</extensions>
 	<extensions defaultExtensionNs="org.jetbrains.plugins.cucumber.steps">
-		<cucumberJvmExtensionPoint implementation="com.finanteq.plugins.idea.cucumber.kotlin.CucumberKotlinExtension" />
+		<cucumberJvmExtensionPoint
+			implementation="com.finanteq.plugins.idea.cucumber.kotlin.CucumberKotlinExtension"
+			order="first" />
 	</extensions>
 
-	<actions>
-
-	</actions>
 </idea-plugin>
