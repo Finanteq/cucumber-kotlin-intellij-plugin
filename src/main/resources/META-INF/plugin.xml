@@ -10,7 +10,6 @@
 	<idea-version since-build="200.0" />
 
 	<depends>cucumber-java</depends>
-	<depends>cucumber-groovy</depends>
 	<depends>org.jetbrains.kotlin</depends>
 
 	<extensions defaultExtensionNs="com.intellij">
