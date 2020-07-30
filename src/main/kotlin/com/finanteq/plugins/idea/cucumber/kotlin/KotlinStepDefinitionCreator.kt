@@ -42,7 +42,7 @@ class KotlinStepDefinitionCreator : JavaStepDefinitionCreator() {
         val project = file.project
 
         closeActiveTemplateBuilders(file)
-        PsiDocumentManager.getInstance(project).commitAllDocuments();
+        PsiDocumentManager.getInstance(project).commitAllDocuments()
 
         val clazz = (ktFile.classes[0] as KtLightClass).kotlinOrigin!!
 
@@ -70,7 +70,7 @@ class KotlinStepDefinitionCreator : JavaStepDefinitionCreator() {
     private fun getPendingExceptionFqn(psiElement: PsiElement): String {
         val coreVersion = CucumberConfigUtil.getCucumberCoreVersion(psiElement)
                 ?: return "cucumber.api.PendingException"
-        return if (coreVersion >= CucumberConfigUtil.CUCUMBER_VERSION_4_5) "io.cucumber.java.PendingException" else "cucumber.api.PendingException"
+        return if (coreVersion >= "5.0") "io.cucumber.java.PendingException" else "cucumber.api.PendingException"
     }
 
     private fun addImport(ktFile: KtFile, importPath: ImportPath, factory: KtPsiFactory) {
