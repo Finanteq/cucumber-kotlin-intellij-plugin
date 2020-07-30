@@ -14,13 +14,6 @@
 
 	<extensions defaultExtensionNs="com.intellij">
 
-		<!--		<referencesSearch-->
-		<!--			implementation="com.finanteq.plugins.idea.cucumber.kotlin.CucumberKotlinStepDefinitionSearch" />-->
-
-		<!--		<projectService serviceInterface="org.jetbrains.plugins.cucumber.CucumberStepIndex"-->
-		<!--			overrides="true"-->
-		<!--			serviceImplementation="com.finanteq.plugins.idea.cucumber.kotlin.CucumberKotlinStepsIndex" />-->
-
 		<intentionAction id="generate-table-class"
 			factoryClass="com.finanteq.plugins.idea.cucumber.kotlin.GenerateTableClassIntentionActionFactory"
 			factoryArgument="">

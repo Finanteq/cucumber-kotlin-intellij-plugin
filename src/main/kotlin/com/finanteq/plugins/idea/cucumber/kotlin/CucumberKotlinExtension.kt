@@ -19,18 +19,4 @@ class CucumberKotlinExtension : CucumberJavaExtension() {
     override fun getStepDefinitionCreator(): StepDefinitionCreator {
         return kotlinStepDefinitionCreator
     }
-
-//    override fun isStepLikeFile(child: PsiElement, parent: PsiElement): Boolean {
-//        return child is FakeFileForLightClass || child is KtFile
-//    }
-//
-//    override fun isWritableStepLikeFile(child: PsiElement, parent: PsiElement): Boolean {
-//        if (isStepLikeFile(child, parent))
-//            return super.isWritableStepLikeFile(child, parent)
-//        return false
-//    }
-//
-//    override fun getStepDefinitionContainers(featureFile: GherkinFile): Collection<PsiFile> {
-//        return super.getStepDefinitionContainers(featureFile)
-//    }
 }
