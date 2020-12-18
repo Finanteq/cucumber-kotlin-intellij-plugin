@@ -11,6 +11,8 @@
 
 	<depends>cucumber-java</depends>
 	<depends>org.jetbrains.kotlin</depends>
+	<!--	todo https://youtrack.jetbrains.com/issue/IDEA-254030-->
+	<depends>com.intellij.modules.java</depends>
 
 	<extensions defaultExtensionNs="com.intellij">
 
