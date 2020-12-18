@@ -7,16 +7,18 @@
    This plugin enables <a href="https://cucumber.io/">Cucumber</a> support with step definitions written in Kotlin.
     ]]></description>
 
-	<idea-version since-build="200.0" />
+	<idea-version since-build="201.0"/>
 
 	<depends>cucumber-java</depends>
 	<depends>org.jetbrains.kotlin</depends>
+	<!--	todo https://youtrack.jetbrains.com/issue/IDEA-254030-->
+	<depends>com.intellij.modules.java</depends>
 
 	<extensions defaultExtensionNs="com.intellij">
 
 		<intentionAction id="generate-table-class"
-			factoryClass="com.finanteq.plugins.idea.cucumber.kotlin.GenerateTableClassIntentionActionFactory"
-			factoryArgument="">
+		                 factoryClass="com.finanteq.plugins.idea.cucumber.kotlin.GenerateTableClassIntentionActionFactory"
+		                 factoryArgument="">
 			<className>
 				com.finanteq.plugins.idea.cucumber.kotlin.GenerateTableClassIntentionActionFactory
 			</className>
