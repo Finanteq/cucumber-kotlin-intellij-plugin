@@ -15,8 +15,6 @@ import gherkin.formatter.model.DataTableRow
 import gherkin.formatter.model.Step
 import org.jetbrains.kotlin.asJava.classes.KtLightClass
 import org.jetbrains.kotlin.asJava.elements.FakeFileForLightClass
-import org.jetbrains.kotlin.idea.inspections.findExistingEditor
-import org.jetbrains.kotlin.idea.quickfix.moveCaretToEnd
 import org.jetbrains.kotlin.idea.refactoring.createKotlinFile
 import org.jetbrains.kotlin.psi.KtFile
 import org.jetbrains.kotlin.psi.KtNamedFunction
@@ -48,7 +46,7 @@ class KotlinStepDefinitionCreator : JavaStepDefinitionCreator() {
 
         val factory = KtPsiFactory(project)
 
-        val classBody = clazz.getBody()!!
+        val classBody = clazz.body!!
         val element = buildStepDefinitionByStep(step, factory)
         var addedElement = classBody.addBefore(element, classBody.rBrace) as KtNamedFunction
         addedElement = CodeInsightUtilCore.forcePsiPostprocessAndRestoreElement(addedElement)
