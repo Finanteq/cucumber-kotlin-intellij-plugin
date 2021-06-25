@@ -2,12 +2,15 @@ package com.finanteq.plugins.idea.cucumber.kotlin
 
 import com.intellij.codeInsight.CodeInsightUtilCore
 import com.intellij.openapi.application.ApplicationManager
+import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.editor.ScrollType
+import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.Computable
 import com.intellij.psi.PsiDirectory
 import com.intellij.psi.PsiDocumentManager
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
+import com.intellij.refactoring.suggested.endOffset
 import cucumber.runtime.snippets.CamelCaseConcatenator
 import cucumber.runtime.snippets.FunctionNameGenerator
 import cucumber.runtime.snippets.SnippetGenerator
@@ -16,7 +19,6 @@ import gherkin.formatter.model.Step
 import org.jetbrains.kotlin.asJava.classes.KtLightClass
 import org.jetbrains.kotlin.asJava.elements.FakeFileForLightClass
 import org.jetbrains.kotlin.idea.inspections.findExistingEditor
-import org.jetbrains.kotlin.idea.quickfix.moveCaretToEnd
 import org.jetbrains.kotlin.idea.refactoring.createKotlinFile
 import org.jetbrains.kotlin.psi.KtFile
 import org.jetbrains.kotlin.psi.KtNamedFunction
@@ -107,6 +109,15 @@ class KotlinStepDefinitionCreator : JavaStepDefinitionCreator() {
             return@Computable kotlinFile
         })
 
+    }
+
+    private fun PsiElement.moveCaretToEnd(editor: Editor?, project: Project) {
+        editor?.run {
+            PsiDocumentManager.getInstance(project).doPostponedOperationsAndUnblockDocument(document)
+            val endOffset = if (text.endsWith(")")) endOffset - 1 else endOffset
+            document.insertString(endOffset, " ")
+            caretModel.moveToOffset(endOffset + 1)
+        }
     }
 
 }

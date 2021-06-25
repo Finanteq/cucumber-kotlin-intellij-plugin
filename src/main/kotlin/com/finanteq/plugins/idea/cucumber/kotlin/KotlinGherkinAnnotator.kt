@@ -10,7 +10,7 @@ import org.jetbrains.plugins.cucumber.steps.CucumberStepHelper
 class KotlinGherkinAnnotator : Annotator {
 
     companion object {
-        private val point = CucumberJvmExtensionPoint.EP_NAME.getPoint(null)
+        private val point = CucumberJvmExtensionPoint.EP_NAME.point
         private var removed = false
     }
 
