@@ -11,4 +11,8 @@ class CucumberKotlinAndroidRunConfiguration(project: Project?, factory: Configur
     override fun suggestedName(): String? {
         return suggestedName
     }
+
+    override fun getActionName(): String {
+        return name
+    }
 }
