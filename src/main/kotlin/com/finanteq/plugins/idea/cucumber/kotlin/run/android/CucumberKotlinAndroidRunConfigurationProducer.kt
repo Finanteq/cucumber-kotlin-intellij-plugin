@@ -194,7 +194,7 @@ private class AndroidTestConfigurator(
         return tryGherkinEntity(
             configuration,
             sourceElementRef,
-            isGherkinEntity = { GherkinTokenTypes.FEATURE_KEYWORD == location.psiElement.elementType },
+            isGherkinEntity = { location.psiElement.elementType == GherkinTokenTypes.FEATURE_KEYWORD || location.psiElement is GherkinFile },
             suggestedName = { getFeatureName(it) },
             featuresPath = { getFeaturePath() }
         )
