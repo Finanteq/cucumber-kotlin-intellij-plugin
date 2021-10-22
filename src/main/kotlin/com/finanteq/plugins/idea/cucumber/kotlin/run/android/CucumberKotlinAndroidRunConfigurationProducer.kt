@@ -227,9 +227,9 @@ private class AndroidTestConfigurator(
         sourceElementRef.set(location.psiElement)
         configuration.TESTING_TYPE = AndroidTestRunConfiguration.TEST_ALL_IN_MODULE
         val path = featuresPath()
-        configuration.suggestedName = suggestedName(path.orEmpty())
+        configuration.setSuggestedName(suggestedName(path.orEmpty()))
         if (path != null) {
-            configuration.EXTRA_OPTIONS = "-e features $path"
+            configuration.setExtraOptions("-e features $path")
         }
         configuration.setGeneratedName()
     }
