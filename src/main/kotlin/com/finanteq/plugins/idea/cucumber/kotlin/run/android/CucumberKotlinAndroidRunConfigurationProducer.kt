@@ -31,11 +31,11 @@ import org.jetbrains.kotlin.idea.util.sourceRoot
 import org.jetbrains.plugins.cucumber.psi.*
 import org.jetbrains.plugins.gradle.service.execution.GradleExternalTaskConfigurationType
 
-class CucumberKotlinAndroidRunConfigurationProducer : JavaRunConfigurationProducerBase<CucumberKotlinAndroidRunConfiguration>() {
+class CucumberKotlinAndroidRunConfigurationProducer : JavaRunConfigurationProducerBase<AndroidTestRunConfiguration>() {
 
 
     override fun setupConfigurationFromContext(
-        configuration: CucumberKotlinAndroidRunConfiguration,
+        configuration: AndroidTestRunConfiguration,
         context: ConfigurationContext,
         sourceElementRef: Ref<PsiElement>
     ): Boolean {
@@ -53,8 +53,8 @@ class CucumberKotlinAndroidRunConfigurationProducer : JavaRunConfigurationProduc
         return true
     }
 
-    override fun isConfigurationFromContext(configuration: CucumberKotlinAndroidRunConfiguration, context: ConfigurationContext): Boolean {
-        val expectedConfig = configurationFactory.createTemplateConfiguration(configuration.project) as CucumberKotlinAndroidRunConfiguration
+    override fun isConfigurationFromContext(configuration: AndroidTestRunConfiguration, context: ConfigurationContext): Boolean {
+        val expectedConfig = configurationFactory.createTemplateConfiguration(configuration.project) as AndroidTestRunConfiguration
         val configurator = AndroidTestConfigurator(context) ?: return false
         if (!configurator.configure(expectedConfig, Ref())) {
             return false
@@ -81,7 +81,7 @@ class CucumberKotlinAndroidRunConfigurationProducer : JavaRunConfigurationProduc
         else -> false
     }
 
-    override fun getConfigurationFactory(): ConfigurationFactory = CucumberKotlinAndroidRunConfigurationType.getInstance().factory
+    override fun getConfigurationFactory(): ConfigurationFactory = AndroidTestRunConfigurationType.getInstance().factory
 }
 
 /**
@@ -119,7 +119,7 @@ private class AndroidTestConfigurator(
      * for reference
      */
     fun configure(
-        configuration: CucumberKotlinAndroidRunConfiguration,
+        configuration: AndroidTestRunConfiguration,
         sourceElementRef: Ref<PsiElement>
     ): Boolean {
         if (!testScopes.isAndroidTestSource(virtualFile)) {
@@ -146,7 +146,7 @@ private class AndroidTestConfigurator(
     /**
      * Tries to configure for a single scenario test. Returns true if success otherwise false.
      */
-    private fun tryScenarioTestConfiguration(configuration: CucumberKotlinAndroidRunConfiguration, sourceElementRef: Ref<PsiElement>): Boolean {
+    private fun tryScenarioTestConfiguration(configuration: AndroidTestRunConfiguration, sourceElementRef: Ref<PsiElement>): Boolean {
         return tryGherkinEntity(
             configuration,
             sourceElementRef,
@@ -156,7 +156,7 @@ private class AndroidTestConfigurator(
         )
     }
 
-    private fun tryScenarioOutlineExampleTestConfiguration(configuration: CucumberKotlinAndroidRunConfiguration, sourceElementRef: Ref<PsiElement>): Boolean {
+    private fun tryScenarioOutlineExampleTestConfiguration(configuration: AndroidTestRunConfiguration, sourceElementRef: Ref<PsiElement>): Boolean {
         return tryGherkinEntity(
             configuration,
             sourceElementRef,
@@ -190,7 +190,7 @@ private class AndroidTestConfigurator(
     /**
      * Tries to configure for a single feature test. Returns true if success otherwise false.
      */
-    private fun tryFeatureTestConfiguration(configuration: CucumberKotlinAndroidRunConfiguration, sourceElementRef: Ref<PsiElement>): Boolean {
+    private fun tryFeatureTestConfiguration(configuration: AndroidTestRunConfiguration, sourceElementRef: Ref<PsiElement>): Boolean {
         return tryGherkinEntity(
             configuration,
             sourceElementRef,
@@ -215,7 +215,7 @@ private class AndroidTestConfigurator(
     private fun PsiFileSystemItem.relativePathInSourceRoot() = virtualFile.path.removePrefix(sourceRoot?.path.orEmpty()).removePrefix("/")
 
 
-    private fun tryGherkinEntity(configuration: CucumberKotlinAndroidRunConfiguration, sourceElementRef: Ref<PsiElement>, isGherkinEntity: (IElementType?) -> Boolean, suggestedName: (path: String) -> String, featuresPath: () -> String): Boolean {
+    private fun tryGherkinEntity(configuration: AndroidTestRunConfiguration, sourceElementRef: Ref<PsiElement>, isGherkinEntity: (IElementType?) -> Boolean, suggestedName: (path: String) -> String, featuresPath: () -> String): Boolean {
         if (isGherkinEntity(location.psiElement.elementType)) {
             setupConfiguration(sourceElementRef, configuration, suggestedName, featuresPath)
             return true
@@ -223,21 +223,20 @@ private class AndroidTestConfigurator(
         return false
     }
 
-    private fun setupConfiguration(sourceElementRef: Ref<PsiElement>, configuration: CucumberKotlinAndroidRunConfiguration, suggestedName: (path: String) -> String, featuresPath: () -> String?) {
+    private fun setupConfiguration(sourceElementRef: Ref<PsiElement>, configuration: AndroidTestRunConfiguration, suggestedName: (path: String) -> String, featuresPath: () -> String?) {
         sourceElementRef.set(location.psiElement)
         configuration.TESTING_TYPE = AndroidTestRunConfiguration.TEST_ALL_IN_MODULE
         val path = featuresPath()
-        configuration.setSuggestedName(suggestedName(path.orEmpty()))
+        configuration.name = suggestedName(path.orEmpty())
         if (path != null) {
-            configuration.setExtraOptions("-e features $path")
+            configuration.EXTRA_OPTIONS = "-e features $path"
         }
-        configuration.setGeneratedName()
     }
 
     /**
      * Tries to configure for an all-in-folder test. Returns true if success otherwise false.
      */
-    private fun tryAllInFolderTestConfiguration(configuration: CucumberKotlinAndroidRunConfiguration, sourceElementRef: Ref<PsiElement>): Boolean {
+    private fun tryAllInFolderTestConfiguration(configuration: AndroidTestRunConfiguration, sourceElementRef: Ref<PsiElement>): Boolean {
 
         val locationFile = location.virtualFile
         locationFile ?: return false
