@@ -2,12 +2,15 @@ package com.finanteq.plugins.idea.cucumber.kotlin
 
 import com.intellij.codeInsight.CodeInsightUtilCore
 import com.intellij.openapi.application.ApplicationManager
+import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.editor.ScrollType
+import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.Computable
 import com.intellij.psi.PsiDirectory
 import com.intellij.psi.PsiDocumentManager
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
+import com.intellij.refactoring.suggested.endOffset
 import cucumber.runtime.snippets.CamelCaseConcatenator
 import cucumber.runtime.snippets.FunctionNameGenerator
 import cucumber.runtime.snippets.SnippetGenerator
@@ -15,6 +18,7 @@ import gherkin.formatter.model.DataTableRow
 import gherkin.formatter.model.Step
 import org.jetbrains.kotlin.asJava.classes.KtLightClass
 import org.jetbrains.kotlin.asJava.elements.FakeFileForLightClass
+import org.jetbrains.kotlin.idea.inspections.findExistingEditor
 import org.jetbrains.kotlin.idea.refactoring.createKotlinFile
 import org.jetbrains.kotlin.psi.KtFile
 import org.jetbrains.kotlin.psi.KtNamedFunction
@@ -46,7 +50,7 @@ class KotlinStepDefinitionCreator : JavaStepDefinitionCreator() {
 
         val factory = KtPsiFactory(project)
 
-        val classBody = clazz.body!!
+        val classBody = clazz.getBody()!!
         val element = buildStepDefinitionByStep(step, factory)
         var addedElement = classBody.addBefore(element, classBody.rBrace) as KtNamedFunction
         addedElement = CodeInsightUtilCore.forcePsiPostprocessAndRestoreElement(addedElement)
@@ -67,7 +71,7 @@ class KotlinStepDefinitionCreator : JavaStepDefinitionCreator() {
 
     private fun getPendingExceptionFqn(psiElement: PsiElement): String {
         val coreVersion = CucumberConfigUtil.getCucumberCoreVersion(psiElement)
-                ?: return "cucumber.api.PendingException"
+            ?: return "cucumber.api.PendingException"
         return if (coreVersion >= "5.0") "io.cucumber.java.PendingException" else "cucumber.api.PendingException"
     }
 
@@ -86,9 +90,9 @@ class KotlinStepDefinitionCreator : JavaStepDefinitionCreator() {
         val generator = SnippetGenerator(KotlinSnippet())
 
         val snippet = generator.getSnippet(cucumberStep, FunctionNameGenerator(CamelCaseConcatenator()))
-                .replaceFirst("@".toRegex(), methodAnnotation)
-                .replace("\\\\\\\\".toRegex(), "\\\\")
-                .replace("\\\\d".toRegex(), "\\\\\\\\d")
+            .replaceFirst("@".toRegex(), methodAnnotation)
+            .replace("\\\\\\\\".toRegex(), "\\\\")
+            .replace("\\\\d".toRegex(), "\\\\\\\\d")
 
 
         return factory.createFunction(snippet)
@@ -105,6 +109,15 @@ class KotlinStepDefinitionCreator : JavaStepDefinitionCreator() {
             return@Computable kotlinFile
         })
 
+    }
+
+    private fun PsiElement.moveCaretToEnd(editor: Editor?, project: Project) {
+        editor?.run {
+            PsiDocumentManager.getInstance(project).doPostponedOperationsAndUnblockDocument(document)
+            val endOffset = if (text.endsWith(")")) endOffset - 1 else endOffset
+            document.insertString(endOffset, " ")
+            caretModel.moveToOffset(endOffset + 1)
+        }
     }
 
 }

@@ -9,10 +9,12 @@
 
 	<idea-version since-build="211.0"/>
 
+	<depends>com.intellij.modules.platform</depends>
 	<depends>cucumber-java</depends>
 	<depends>org.jetbrains.kotlin</depends>
 	<!--	todo https://youtrack.jetbrains.com/issue/IDEA-254030-->
 	<depends>com.intellij.modules.java</depends>
+	<depends optional="true" config-file="com.finanteq.plugins.idea.cucumber-kotlin-idea-plugin-withAndroid.xml">org.jetbrains.android</depends>
 
 	<extensions defaultExtensionNs="com.intellij">
 
@@ -23,10 +25,14 @@
 		</intentionAction>
 
 		<completion.contributor language="Gherkin"
-			implementationClass="com.finanteq.plugins.idea.cucumber.kotlin.StepsCompletionContributor" />
+		                        implementationClass="com.finanteq.plugins.idea.cucumber.kotlin.StepsCompletionContributor"/>
 		<annotator language="Gherkin"
-			implementationClass="com.finanteq.plugins.idea.cucumber.kotlin.KotlinGherkinAnnotator"
-			order="first" />
+		           implementationClass="com.finanteq.plugins.idea.cucumber.kotlin.KotlinGherkinAnnotator"
+		           order="first"/>
+
+		<runLineMarkerContributor id="scenarioRunLineMarkerContributor" language="Gherkin" implementationClass="com.finanteq.plugins.idea.cucumber.kotlin.run.CucumberKotlinScenarioOutlineExampleRunLineMarkerContributor"/>
+
+		<runConfigurationProducer implementation="com.finanteq.plugins.idea.cucumber.kotlin.run.CucumberJavaScenarioOutlineExampleRunConfigurationProducer"/>
 
 	</extensions>
 	<extensions defaultExtensionNs="org.jetbrains.plugins.cucumber.steps">

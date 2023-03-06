@@ -1,0 +1,7 @@
+<idea-plugin>
+	<extensions defaultExtensionNs="com.intellij">
+
+
+		<runConfigurationProducer implementation="com.finanteq.plugins.idea.cucumber.kotlin.run.android.CucumberKotlinAndroidRunConfigurationProducer"/>
+	</extensions>
+</idea-plugin>
