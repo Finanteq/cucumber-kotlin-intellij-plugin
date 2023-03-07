@@ -29,7 +29,6 @@ import org.jetbrains.plugins.cucumber.java.config.CucumberConfigUtil
 import org.jetbrains.plugins.cucumber.java.steps.AnnotationPackageProvider
 import org.jetbrains.plugins.cucumber.java.steps.JavaStepDefinitionCreator
 import org.jetbrains.plugins.cucumber.psi.GherkinStep
-import java.util.*
 
 class KotlinStepDefinitionCreator : JavaStepDefinitionCreator() {
 
@@ -50,10 +49,10 @@ class KotlinStepDefinitionCreator : JavaStepDefinitionCreator() {
 
         val factory = KtPsiFactory(project)
 
-        val classBody = clazz.getBody()!!
+        val classBody = clazz.body!!
         val element = buildStepDefinitionByStep(step, factory)
         var addedElement = classBody.addBefore(element, classBody.rBrace) as KtNamedFunction
-        addedElement = CodeInsightUtilCore.forcePsiPostprocessAndRestoreElement(addedElement)
+        addedElement = CodeInsightUtilCore.forcePsiPostprocessAndRestoreElement(addedElement)!!
 
         addedElement.annotationEntries.forEach {
             val typeReference = it.typeReference!!

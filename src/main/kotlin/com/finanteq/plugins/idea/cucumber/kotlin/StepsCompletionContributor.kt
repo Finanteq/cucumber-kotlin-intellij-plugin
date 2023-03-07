@@ -2,7 +2,6 @@ package com.finanteq.plugins.idea.cucumber.kotlin
 
 import com.intellij.codeInsight.completion.*
 import com.intellij.codeInsight.lookup.LookupElementBuilder
-import com.intellij.openapi.roots.ContentIterator
 import com.intellij.openapi.roots.ModuleRootManager
 import com.intellij.patterns.PlatformPatterns.psiElement
 import com.intellij.psi.PsiFile
@@ -34,7 +33,7 @@ class StepsCompletionContributor : CompletionContributor() {
         val module = file.module!!
         val fileIndex = ModuleRootManager.getInstance(module).fileIndex
         val moduleContentScope = GlobalSearchScope.getScopeRestrictedByFileTypes(module.moduleContentScope, GherkinFileType.INSTANCE)
-        fileIndex.iterateContent(ContentIterator {
+        fileIndex.iterateContent({
 
             val gherkinFile = it.toPsiFile(project) as? GherkinFile
 

@@ -2,12 +2,12 @@ buildscript {
 }
 
 plugins {
-    id 'org.jetbrains.intellij' version '1.2.0'
-    id "org.jetbrains.kotlin.jvm" version "1.5.31"
+    id 'org.jetbrains.intellij' version '1.13.1'
+    id "org.jetbrains.kotlin.jvm" version "1.8.10"
     id 'maven-publish'
 }
 group 'com.finanteq.plugins.idea'
-version '2020.3.1.5'
+version '221.6008.1'
 
 sourceCompatibility = 11
 
@@ -16,7 +16,7 @@ repositories {
 }
 
 dependencies {
-    testImplementation group: 'junit', name: 'junit', version: '4.12'
+    testImplementation group: 'junit', name: 'junit', version: '4.13.2'
 }
 
 compileKotlin {
@@ -26,10 +26,11 @@ compileTestKotlin {
     kotlinOptions.jvmTarget = "11"
 }
 intellij {
-    version.set "2020.3.1"
-    plugins.set(['cucumber-java:203.5981.155', 'gherkin:203.5981.155', 'Kotlin', 'java', "org.jetbrains.android"])
-    updateSinceUntilBuild.set false
-    sameSinceUntilBuild.set false
+    version.set("221.6008.13.2211.9619390")
+    type.set("AI")
+    plugins.set(['cucumber-java:221.6008.13', 'gherkin:221.6008.13', 'Kotlin', 'java', "org.jetbrains.android"])
+    updateSinceUntilBuild.set(false)
+    sameSinceUntilBuild.set(false)
 }
 
 publishing {

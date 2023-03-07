@@ -18,10 +18,10 @@ import org.jetbrains.plugins.cucumber.psi.GherkinFileType
 class GenerateTableClassIntentionAction : IntentionAction {
     override fun startInWriteAction(): Boolean = false
 
-    override fun getFamilyName(): String = "gherkin"
+    override fun getFamilyName(): String = "Gherkin"
 
     override fun isAvailable(project: Project, editor: Editor, file: PsiFile): Boolean {
-        if (file.fileType != GherkinFileType.INSTANCE) return false
+        if (file.isNotGherkinFile()) return false
 
         val lineText = editor.getLineText()
 
@@ -29,8 +29,6 @@ class GenerateTableClassIntentionAction : IntentionAction {
 
         return true
     }
-
-    private fun Editor.getLineText() = document.getText(TextRange(caretModel.visualLineStart, caretModel.visualLineEnd))
 
     override fun getText(): String = "Generate table class"
 
@@ -74,7 +72,12 @@ class GenerateTableClassIntentionAction : IntentionAction {
             }).navigate(false)
         }
     }
+
 }
+
+internal fun Editor.getLineText() = document.getText(TextRange(caretModel.visualLineStart, caretModel.visualLineEnd))
+
+internal fun PsiFile.isNotGherkinFile() = fileType != GherkinFileType.INSTANCE
 
 class GenerateTableClassIntentionActionFactory : ExtensionFactory {
     override fun createInstance(factoryArgument: String, implementationClass: String?): Any {

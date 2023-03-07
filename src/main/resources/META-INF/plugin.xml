@@ -7,7 +7,7 @@
    This plugin enables <a href="https://cucumber.io/">Cucumber</a> support with step definitions written in Kotlin.
     ]]></description>
 
-	<idea-version since-build="211.0"/>
+	<idea-version since-build="221.0"/>
 
 	<depends>com.intellij.modules.platform</depends>
 	<depends>cucumber-java</depends>
@@ -22,6 +22,12 @@
 		                 factoryClass="com.finanteq.plugins.idea.cucumber.kotlin.GenerateTableClassIntentionActionFactory"
 		                 factoryArgument="">
 			<className>com.finanteq.plugins.idea.cucumber.kotlin.GenerateTableClassIntentionAction</className>
+		</intentionAction>
+
+		<intentionAction id="create-kotlin-step-definition"
+		                 factoryClass="com.finanteq.plugins.idea.cucumber.kotlin.CreateStepDefinitionIntentionActionFactory"
+		                 factoryArgument="">
+			<className>com.finanteq.plugins.idea.cucumber.kotlin.CreateStepDefinitionIntentionAction</className>
 		</intentionAction>
 
 		<completion.contributor language="Gherkin"
