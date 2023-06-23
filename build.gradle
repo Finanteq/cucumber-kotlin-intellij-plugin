@@ -1,15 +1,13 @@
-buildscript {
-}
 
 plugins {
-    id 'org.jetbrains.intellij' version '1.13.3'
+    id 'org.jetbrains.intellij' version '1.14.1'
     id "org.jetbrains.kotlin.jvm" version "1.8.10"
     id 'maven-publish'
 }
 group 'com.finanteq.plugins.idea'
-version '221.6008.1'
+version '222.4459.2'
 
-sourceCompatibility = 11
+sourceCompatibility = 17
 
 repositories {
     mavenCentral()
@@ -20,33 +18,32 @@ dependencies {
 }
 
 compileKotlin {
-    kotlinOptions.jvmTarget = "11"
+    kotlinOptions.jvmTarget = sourceCompatibility
 }
 compileTestKotlin {
-    kotlinOptions.jvmTarget = "11"
+    kotlinOptions.jvmTarget = sourceCompatibility
 }
+def studioVersion = "222.4459.24.2221.10121639"
 intellij {
-    version.set("221.6008.13.2211.9619390")
+    version.set(studioVersion)
     type.set("AI")
-    plugins.set(['cucumber-java:221.6008.13', 'gherkin:221.6008.13', 'Kotlin', 'java', "org.jetbrains.android"])
+    plugins.set(['cucumber-java:222.4459.16', 'gherkin:222.4459.16', 'Kotlin', 'java', "org.jetbrains.android"])
     updateSinceUntilBuild.set(false)
     sameSinceUntilBuild.set(false)
 }
 
-//publishing {
-//
-//    publications {
-//        mavenJar(MavenPublication) {
-//            artifact buildPlugin
-//        }
-//    }
-//    repositories {
-//        maven {
-//            url project.version.endsWith('-SNAPSHOT') ? sonatypeSnapshotRepo : sonatypeRepo
-//            credentials {
-//                username = sonatypeUsername
-//                password = sonatypePassword
-//            }
-//        }
-//    }
-//}
+signPlugin {
+    certificateChainFile.set(file(findProperty("finanteqOpenSourceCertFile")))
+    privateKeyFile.set(file(findProperty("finanteqOpenSourceKeyFile")))
+    password.set(findProperty("finanteqOpenSourceKeyPassword"))
+}
+
+publishPlugin {
+    token.set(findProperty("finanteqOpenSourceJetbrainsPublishToken"))
+}
+
+tasks {
+    buildSearchableOptions {
+        enabled = false
+    }
+}

@@ -1,13 +1,26 @@
 <idea-plugin>
 	<id>com.finanteq.plugins.idea.cucumber-kotlin-idea-plugin</id>
-	<name>Cucumber for Kotlin</name>
+	<name>Cucumber for Kotlin and Android</name>
 	<vendor email="lukasz.suski@finanteq.com" url="https://finanteq.com/">Finanteq</vendor>
 
 	<description><![CDATA[
-   This plugin enables <a href="https://cucumber.io/">Cucumber</a> support with step definitions written in Kotlin.
-    ]]></description>
+		This plugin enables <a href="https://cucumber.io/">Cucumber</a> support with step definitions written in Kotlin and allows running Cucumber scenarios as Android Instrumented tests directly from IDE.
 
-	<idea-version since-build="221.0"/>
+		<br/>
+		<h4>Main Features:</h4>
+		<ul>
+			<li>navigation between scenario and step implementation</li>
+			<li>creating step implementation in Kotlin</li>
+			<li>running scenario as Android Instrumented Test</li>
+			<li>running single example in Scenario Outline</li>
+			<li>creating Kotlin data class for given data table in scenario</li>
+		</ul>
+
+		<br/>
+		For more details check <a href="https://github.com/Finanteq/cucumber-kotlin-intellij-plugin">GitHub page</a>
+		]]></description>
+	<idea-version since-build="222.4459.24" until-build="222.*"/>
+
 
 	<depends>com.intellij.modules.platform</depends>
 	<depends>cucumber-java</depends>
@@ -44,7 +57,15 @@
 	<extensions defaultExtensionNs="org.jetbrains.plugins.cucumber.steps">
 		<cucumberJvmExtensionPoint
 			implementation="com.finanteq.plugins.idea.cucumber.kotlin.CucumberKotlinExtension"
-			order="first" />
+			order="first"/>
 	</extensions>
+
+	<change-notes><![CDATA[
+		<h2>222.4459.2</h2>
+		<ul>
+			<li>based on cucumber-java:222.4459.16</li>
+			<li>tested on Android Studio 222.4459.24.2221.10121639</li>
+		</ul>
+		]]></change-notes>
 
 </idea-plugin>
