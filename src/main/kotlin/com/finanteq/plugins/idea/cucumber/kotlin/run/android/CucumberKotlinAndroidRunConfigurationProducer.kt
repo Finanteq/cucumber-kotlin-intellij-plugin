@@ -25,7 +25,7 @@ import com.intellij.psi.util.PsiTreeUtil
 import com.intellij.psi.util.PsiUtilCore
 import com.intellij.psi.util.elementType
 import org.jetbrains.android.util.AndroidUtils
-import org.jetbrains.kotlin.idea.core.util.getLineNumber
+import org.jetbrains.kotlin.idea.base.psi.getLineNumber
 import org.jetbrains.kotlin.idea.core.util.toPsiDirectory
 import org.jetbrains.kotlin.idea.util.sourceRoot
 import org.jetbrains.plugins.cucumber.psi.*
@@ -46,11 +46,7 @@ class CucumberKotlinAndroidRunConfigurationProducer : JavaRunConfigurationProduc
 
         // Set context.module to the configuration using the utility method from the base class. It may
         // set non-context module such as pre-defined module in configuration template.
-        if (!setupConfigurationModule(context, configuration)) {
-            return false
-        }
-
-        return true
+        return setupConfigurationModule(context, configuration)
     }
 
     override fun isConfigurationFromContext(configuration: AndroidTestRunConfiguration, context: ConfigurationContext): Boolean {

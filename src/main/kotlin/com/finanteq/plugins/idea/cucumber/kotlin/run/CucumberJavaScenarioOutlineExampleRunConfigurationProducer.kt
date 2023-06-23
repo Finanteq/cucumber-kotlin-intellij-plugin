@@ -7,7 +7,7 @@ import com.intellij.execution.configurations.JavaRunConfigurationModule
 import com.intellij.openapi.util.Comparing
 import com.intellij.openapi.util.Ref
 import com.intellij.psi.PsiElement
-import org.jetbrains.kotlin.idea.core.util.getLineNumber
+import org.jetbrains.kotlin.idea.base.psi.getLineNumber
 import org.jetbrains.plugins.cucumber.java.run.CucumberJavaRunConfiguration
 import org.jetbrains.plugins.cucumber.java.run.CucumberJavaScenarioRunConfigurationProducer
 

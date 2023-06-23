@@ -5,7 +5,7 @@ plugins {
     id 'maven-publish'
 }
 group 'com.finanteq.plugins.idea'
-version '222.4459.2'
+version '223.8836.1'
 
 sourceCompatibility = 17
 
@@ -23,11 +23,11 @@ compileKotlin {
 compileTestKotlin {
     kotlinOptions.jvmTarget = sourceCompatibility
 }
-def studioVersion = "222.4459.24.2221.10121639"
+def studioVersion = "223.8836.35.2231.9923731"
 intellij {
     version.set(studioVersion)
     type.set("AI")
-    plugins.set(['cucumber-java:222.4459.16', 'gherkin:222.4459.16', 'Kotlin', 'java', "org.jetbrains.android"])
+    plugins.set(['cucumber-java:223.7571.123', 'gherkin:223.8617.8', 'Kotlin', 'java', "org.jetbrains.android"])
     updateSinceUntilBuild.set(false)
     sameSinceUntilBuild.set(false)
 }
