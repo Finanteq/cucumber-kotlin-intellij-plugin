@@ -1,5 +1,9 @@
 # Changelog
 
+### 223.8836.2
+
+- fix compatibility with AS Giraffe | 2022.3.1
+
 ### 223.8836.1
 
 - compatible with Android Studio `223.8836.35.2231.9923731`

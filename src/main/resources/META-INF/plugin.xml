@@ -19,7 +19,7 @@
 		<br/>
 		For more details check <a href="https://github.com/Finanteq/cucumber-kotlin-intellij-plugin">GitHub page</a>
 		]]></description>
-	<idea-version since-build="223.8836.35.2231.9923731"/>
+	<idea-version since-build="223.8836.35"/>
 
 
 	<depends>com.intellij.modules.platform</depends>
@@ -61,7 +61,7 @@
 	</extensions>
 
 	<change-notes><![CDATA[
-		<h2>223.8836.1</h2>
+		<h2>223.8836.2</h2>
 		<ul>
 			<li>compatible with Android Studio 223.8836.35.2231.9923731</li>
 		</ul>
