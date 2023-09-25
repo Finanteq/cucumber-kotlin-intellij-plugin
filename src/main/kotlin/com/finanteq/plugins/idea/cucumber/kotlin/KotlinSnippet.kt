@@ -3,7 +3,8 @@ package com.finanteq.plugins.idea.cucumber.kotlin
 import cucumber.api.DataTable
 import cucumber.runtime.snippets.Snippet
 
-class KotlinSnippet : Snippet {
+object KotlinSnippet : Snippet {
+
     override fun tableHint(): String = ""
 
     override fun escapePattern(pattern: String): String {

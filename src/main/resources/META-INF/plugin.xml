@@ -61,10 +61,7 @@
 	</extensions>
 
 	<change-notes><![CDATA[
-		<h2>223.8836.2</h2>
-		<ul>
-			<li>compatible with Android Studio 223.8836.35.2231.9923731</li>
-		</ul>
+		<a href="https://github.com/Finanteq/cucumber-kotlin-intellij-plugin/blob/main/CHANGELOG.md">CHANGELOG</a>
 		]]></change-notes>
 
 </idea-plugin>

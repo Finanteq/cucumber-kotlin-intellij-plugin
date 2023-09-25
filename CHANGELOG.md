@@ -1,5 +1,9 @@
 # Changelog
 
+### 223.8836.3
+
+- generate step definitions with cucumber Expressions instead of Regexp
+
 ### 223.8836.2
 
 - fix compatibility with AS Giraffe | 2022.3.1

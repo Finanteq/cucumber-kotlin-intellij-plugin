@@ -16,6 +16,8 @@ import cucumber.runtime.snippets.FunctionNameGenerator
 import cucumber.runtime.snippets.SnippetGenerator
 import gherkin.formatter.model.DataTableRow
 import gherkin.formatter.model.Step
+import io.cucumber.cucumberexpressions.CucumberExpressionGenerator
+import io.cucumber.cucumberexpressions.ParameterTypeRegistry
 import org.jetbrains.kotlin.asJava.classes.KtLightClass
 import org.jetbrains.kotlin.asJava.elements.FakeFileForLightClass
 import org.jetbrains.kotlin.idea.codeinsight.utils.findExistingEditor
@@ -25,10 +27,13 @@ import org.jetbrains.kotlin.psi.KtNamedFunction
 import org.jetbrains.kotlin.psi.KtPsiFactory
 import org.jetbrains.kotlin.psi.KtUserType
 import org.jetbrains.kotlin.resolve.ImportPath
+import org.jetbrains.plugins.cucumber.java.CucumberJavaUtil
 import org.jetbrains.plugins.cucumber.java.config.CucumberConfigUtil
 import org.jetbrains.plugins.cucumber.java.steps.AnnotationPackageProvider
 import org.jetbrains.plugins.cucumber.java.steps.JavaStepDefinitionCreator
 import org.jetbrains.plugins.cucumber.psi.GherkinStep
+import java.util.*
+
 
 class KotlinStepDefinitionCreator : JavaStepDefinitionCreator() {
 
@@ -86,15 +91,38 @@ class KotlinStepDefinitionCreator : JavaStepDefinitionCreator() {
 
         val rows = step.table?.dataRows?.mapIndexed { index, row -> DataTableRow(emptyList(), row.psiCells.map { it.text }, index) }
         val cucumberStep = Step(ArrayList(), step.keyword.text, step.name, 0, rows, null)
-        val generator = SnippetGenerator(KotlinSnippet())
+        val generator = SnippetGenerator(KotlinSnippet)
 
-        val snippet = generator.getSnippet(cucumberStep, FunctionNameGenerator(CamelCaseConcatenator()))
+        var snippet = generator.getSnippet(cucumberStep, FunctionNameGenerator(CamelCaseConcatenator()))
             .replaceFirst("@".toRegex(), methodAnnotation)
             .replace("\\\\\\\\".toRegex(), "\\\\")
             .replace("\\\\d".toRegex(), "\\\\\\\\d")
 
+        if (CucumberJavaUtil.isCucumberExpressionsAvailable(step)) {
+            snippet = replaceRegexpWithCucumberExpression(snippet, step.name)
+        }
 
         return factory.createFunction(snippet)
+    }
+
+
+    private fun replaceRegexpWithCucumberExpression(snippet: String, step: String): String {
+        try {
+            val registry = ParameterTypeRegistry(Locale.getDefault())
+            val generator = CucumberExpressionGenerator(registry)
+            val result = generator.generateExpressions(step)[0]
+            if (result != null) {
+                val cucumberExpression = KotlinSnippet.escapePattern(result.source)
+                val firstLineEnd = snippet.indexOf('\n')
+                val firstLine = snippet.substring(0, firstLineEnd)
+                val start = firstLine.indexOf('(') + 1
+                val newFirstLine = firstLine.substring(0, start + 1) + cucumberExpression + "\")"
+                return "$newFirstLine${snippet.substring(firstLineEnd)}"
+            }
+        } catch (ignored: Exception) {
+            //ignored
+        }
+        return snippet
     }
 
     override fun createStepDefinitionContainer(dir: PsiDirectory, name: String): PsiFile {
