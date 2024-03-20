@@ -1,11 +1,11 @@
 
 plugins {
-    id 'org.jetbrains.intellij' version '1.14.1'
-    id "org.jetbrains.kotlin.jvm" version "1.8.10"
+    id 'org.jetbrains.intellij' version '1.17.2'
+    id "org.jetbrains.kotlin.jvm" version "1.9.22"
     id 'maven-publish'
 }
 group 'com.finanteq.plugins.idea'
-version '223.8836.3'
+version '232.1'
 
 sourceCompatibility = 17
 
@@ -23,13 +23,23 @@ compileKotlin {
 compileTestKotlin {
     kotlinOptions.jvmTarget = sourceCompatibility
 }
-def studioVersion = "223.8836.35.2231.9923731"
+def studioVersion = "AI-2023.2.1.23"
+def intellijVersion = "2023.3.4"
 intellij {
-    version.set(studioVersion)
+    localPath = findProperty("androidStudioLocalPath")
+//    version.set(studioVersion)
+//    version.set(intellijVersion)
     type.set("AI")
-    plugins.set(['cucumber-java:223.7571.123', 'gherkin:223.8617.8', 'Kotlin', 'java', "org.jetbrains.android"])
+//    type.set("IU")
+    plugins.set(['cucumber-java', 'gherkin', 'Kotlin', 'java', "org.jetbrains.android:233.14475.28"])
     updateSinceUntilBuild.set(false)
     sameSinceUntilBuild.set(false)
+}
+
+listProductsReleases {
+    types.add("AI")
+    types.add("IU")
+    sinceBuild.set("223.0")
 }
 
 signPlugin {

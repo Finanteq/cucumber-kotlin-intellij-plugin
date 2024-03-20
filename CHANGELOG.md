@@ -1,5 +1,9 @@
 # Changelog
 
+### 232.1
+
+- compatible with Android Studio `2023.2.1`
+
 ### 223.8836.3
 
 - generate step definitions with cucumber Expressions instead of Regexp

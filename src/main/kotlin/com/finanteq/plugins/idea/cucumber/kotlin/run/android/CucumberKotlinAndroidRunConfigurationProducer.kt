@@ -1,6 +1,5 @@
 package com.finanteq.plugins.idea.cucumber.kotlin.run.android
 
-import com.android.tools.idea.gradle.project.GradleProjectInfo
 import com.android.tools.idea.projectsystem.TestArtifactSearchScopes
 import com.android.tools.idea.run.AndroidRunConfigurationType
 import com.android.tools.idea.testartifacts.instrumented.AndroidTestRunConfiguration
@@ -63,10 +62,6 @@ class CucumberKotlinAndroidRunConfigurationProducer : JavaRunConfigurationProduc
     }
 
     override fun shouldReplace(self: ConfigurationFromContext, other: ConfigurationFromContext): Boolean = when {
-        // This configuration producer works best for Gradle based project. If the configuration is generated
-        // for non-Gradle project and other configuration is available, prefer the other one.
-        !GradleProjectInfo.getInstance(self.configuration.project).isBuildWithGradle -> false
-
         // If the other configuration type is JUnitConfigurationType or GradleExternalTaskConfigurationType, prefer our configuration.
         // Although those tests may be able to run on both environment if they are written with the unified-api (androidx.test, Espresso),
         // here we prioritize instrumentation.
