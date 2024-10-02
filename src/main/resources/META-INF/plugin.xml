@@ -19,7 +19,7 @@
 		<br/>
 		For more details check <a href="https://github.com/Finanteq/cucumber-kotlin-intellij-plugin">GitHub page</a>
 		]]></description>
-	<idea-version since-build="232"/>
+	<idea-version since-build="242"/>
 
 
 	<depends>com.intellij.modules.platform</depends>

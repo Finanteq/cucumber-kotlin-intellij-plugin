@@ -1,5 +1,10 @@
 # Changelog
 
+### 242.1
+- Plugin's migration from `1.x` to `2.x` 
+- Update `platformVersion` to `2024.2`
+- Dependencies - upgrade `org.jetbrains.intellij.platform` to `2.0.1`
+
 ### 232.1
 
 - compatible with Android Studio `2023.2.1`

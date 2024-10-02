@@ -9,7 +9,6 @@ import com.intellij.execution.Location
 import com.intellij.execution.actions.ConfigurationContext
 import com.intellij.execution.actions.ConfigurationFromContext
 import com.intellij.execution.configurations.ConfigurationFactory
-import com.intellij.execution.junit.JUnitConfigurationType
 import com.intellij.execution.junit.JavaRunConfigurationProducerBase
 import com.intellij.openapi.module.Module
 import com.intellij.openapi.project.Project
@@ -28,7 +27,7 @@ import org.jetbrains.kotlin.idea.base.psi.getLineNumber
 import org.jetbrains.kotlin.idea.core.util.toPsiDirectory
 import org.jetbrains.kotlin.idea.util.sourceRoot
 import org.jetbrains.plugins.cucumber.psi.*
-import org.jetbrains.plugins.gradle.service.execution.GradleExternalTaskConfigurationType
+
 
 class CucumberKotlinAndroidRunConfigurationProducer : JavaRunConfigurationProducerBase<AndroidTestRunConfiguration>() {
 
@@ -61,15 +60,7 @@ class CucumberKotlinAndroidRunConfigurationProducer : JavaRunConfigurationProduc
         return configuration.EXTRA_OPTIONS == expectedConfig.EXTRA_OPTIONS
     }
 
-    override fun shouldReplace(self: ConfigurationFromContext, other: ConfigurationFromContext): Boolean = when {
-        // If the other configuration type is JUnitConfigurationType or GradleExternalTaskConfigurationType, prefer our configuration.
-        // Although those tests may be able to run on both environment if they are written with the unified-api (androidx.test, Espresso),
-        // here we prioritize instrumentation.
-        other.configurationType is JUnitConfigurationType -> true
-        other.configurationType is GradleExternalTaskConfigurationType -> true
-
-        // Otherwise, we don't have preference. Let the IDE to decide which one to use.
-        else -> false
+    override fun shouldReplace(self: ConfigurationFromContext, other: ConfigurationFromContext): Boolean = false
     }
 
     override fun getConfigurationFactory(): ConfigurationFactory = AndroidTestRunConfigurationType.getInstance().factory
