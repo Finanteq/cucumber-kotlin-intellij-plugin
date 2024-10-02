@@ -61,7 +61,6 @@ class CucumberKotlinAndroidRunConfigurationProducer : JavaRunConfigurationProduc
     }
 
     override fun shouldReplace(self: ConfigurationFromContext, other: ConfigurationFromContext): Boolean = false
-    }
 
     override fun getConfigurationFactory(): ConfigurationFactory = AndroidTestRunConfigurationType.getInstance().factory
 }
