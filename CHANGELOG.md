@@ -2,8 +2,9 @@
 
 ### 242.1
 - Plugin's migration from `1.x` to `2.x` 
-- Update `platformVersion` to `2024.2`
+- Update `platformVersion` to `2024.2.3`
 - Dependencies - upgrade `org.jetbrains.intellij.platform` to `2.0.1`
+- Dependencies - upgrade `org.jetbrains.kotlin.jvm` to `2.0.20`
 
 ### 232.1
 
