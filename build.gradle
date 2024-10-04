@@ -19,14 +19,11 @@ repositories {
 
 dependencies {
     intellijPlatform {
-        // intellijIdeaCommunity '2024.2.3'
-        create(providers.gradleProperty("platformType"), providers.gradleProperty("platformVersion"))
+        intellijIdeaCommunity '2024.2.1'
 
-        //plugins providers.gradleProperty("platformPlugins").map { it.split(',') }
         plugin 'gherkin:242.20224.159'
         plugin 'cucumber-java:242.20224.159'
         plugin 'org.jetbrains.android:242.23339.11'
-        //bundledPlugins providers.gradleProperty("platformBundledPlugins").map { it.split(',') }
         bundledPlugin 'com.intellij.java'
         bundledPlugin 'org.jetbrains.kotlin'
 
@@ -42,9 +39,9 @@ dependencies {
 
 intellijPlatform {
     pluginConfiguration {
-        group = providers.gradleProperty("pluginGroup").get()
-        name = providers.gradleProperty("pluginName").get()
-        version = providers.gradleProperty("pluginVersion").get()
+        group = 'com.finanteq.plugins.idea.cucumber-kotlin-idea-plugin'
+        name = 'Cucumber for Kotlin and Android Intellij Plugin'
+        version = '241.1'
     }
 }
 

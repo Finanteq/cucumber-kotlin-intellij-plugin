@@ -4,3 +4,4 @@ build
 local.properties
 out
 .intellijPlatform
+gradle.properties
