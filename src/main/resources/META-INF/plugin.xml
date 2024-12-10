@@ -1,6 +1,4 @@
 <idea-plugin>
-	<id>com.finanteq.plugins.idea.cucumber-kotlin-idea-plugin</id>
-	<name>Cucumber for Kotlin and Android</name>
 	<vendor email="lukasz.suski@finanteq.com" url="https://finanteq.com/">Finanteq</vendor>
 
 	<description><![CDATA[
@@ -19,8 +17,6 @@
 		<br/>
 		For more details check <a href="https://github.com/Finanteq/cucumber-kotlin-intellij-plugin">GitHub page</a>
 		]]></description>
-	<idea-version since-build="242"/>
-
 
 	<depends>com.intellij.modules.platform</depends>
 	<depends>cucumber-java</depends>
@@ -29,6 +25,9 @@
 	<depends>com.intellij.modules.java</depends>
 	<depends optional="true" config-file="com.finanteq.plugins.idea.cucumber-kotlin-idea-plugin-withAndroid.xml">org.jetbrains.android</depends>
 
+	<extensions defaultExtensionNs="org.jetbrains.kotlin">
+		<supportsKotlinPluginMode supportsK2="true"/>
+	</extensions>
 	<extensions defaultExtensionNs="com.intellij">
 
 		<intentionAction id="generate-table-class"
