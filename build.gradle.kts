@@ -1,11 +1,11 @@
 plugins {
-    id("org.jetbrains.intellij.platform") version "2.1.0"
-    id("org.jetbrains.kotlin.jvm") version "2.0.20"
+    id("org.jetbrains.intellij.platform") version "2.2.0"
+    id("org.jetbrains.kotlin.jvm") version "2.1.0"
     id("maven-publish")
 }
 
 group = "com.finanteq.plugins.idea"
-version = "242.1"
+version = "243.1"
 
 repositories {
     mavenCentral()
@@ -38,18 +38,26 @@ intellijPlatform {
     }
 }
 
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+}
+
+kotlin {
+    jvmToolchain(21)
+}
+
 dependencies {
     intellijPlatform {
-        intellijIdeaCommunity("2024.2.1")
+        intellijIdeaCommunity("2024.3.1")
 
-        plugin("gherkin:242.20224.159")
-        plugin("cucumber-java:242.20224.159")
-        plugin("org.jetbrains.android:242.23339.11")
+        plugin("gherkin:243.22562.13")
+        plugin("cucumber-java:243.22562.13")
+        plugin("org.jetbrains.android:243.22562.145")
         bundledPlugin("com.intellij.java")
         bundledPlugin("org.jetbrains.kotlin")
 
         pluginVerifier()
         zipSigner()
-        instrumentationTools()
     }
 }

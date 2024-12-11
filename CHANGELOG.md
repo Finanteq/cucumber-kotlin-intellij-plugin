@@ -1,5 +1,10 @@
 # Changelog
 
+### 243.1
+
+- Update Kotlin version to `2.1.0`
+- Make compatible with platform `2024.3.1`
+
 ### 242.1
 - Plugin's migration from `1.x` to `2.x` 
 - Update `platformVersion` to `2024.2.1`

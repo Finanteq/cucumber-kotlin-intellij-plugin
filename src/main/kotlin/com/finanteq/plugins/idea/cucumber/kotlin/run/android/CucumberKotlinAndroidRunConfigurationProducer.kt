@@ -108,7 +108,7 @@ private class AndroidTestConfigurator(
         }
 
         val targetSelectionMode = AndroidUtils.getDefaultTargetSelectionMode(
-            module, AndroidTestRunConfigurationType.getInstance(), AndroidRunConfigurationType.getInstance()
+            module.project, AndroidTestRunConfigurationType.getInstance(), AndroidRunConfigurationType.getInstance()
         )
         if (targetSelectionMode != null) {
             configuration.deployTargetContext.targetSelectionMode = targetSelectionMode
