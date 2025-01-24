@@ -1,11 +1,13 @@
+import org.jetbrains.intellij.platform.gradle.IntelliJPlatformType
+
 plugins {
-    id("org.jetbrains.intellij.platform") version "2.2.0"
+    id("org.jetbrains.intellij.platform") version "2.2.1"
     id("org.jetbrains.kotlin.jvm") version "2.1.0"
     id("maven-publish")
 }
 
 group = "com.finanteq.plugins.idea"
-version = "243.1"
+version = "242.2-androidStudio"
 
 repositories {
     mavenCentral()
@@ -36,6 +38,14 @@ intellijPlatform {
     publishing {
         token.set(findProperty("finanteqOpenSourceJetbrainsPublishToken") as String)
     }
+
+    pluginVerification {
+        ides {
+            ide(IntelliJPlatformType.AndroidStudio, "2024.2.2.1")
+            ide(IntelliJPlatformType.IntellijIdeaCommunity, "2024.2.2")
+            ide(IntelliJPlatformType.IntellijIdeaUltimate, "2024.2.2")
+        }
+    }
 }
 
 java {
@@ -49,13 +59,13 @@ kotlin {
 
 dependencies {
     intellijPlatform {
-        intellijIdeaCommunity("2024.3.1")
-
-        plugin("gherkin:243.22562.13")
-        plugin("cucumber-java:243.22562.13")
-        plugin("org.jetbrains.android:243.22562.145")
+        androidStudio("2024.2.2.1")
+        plugin("gherkin:242.20224.159")
+        plugin("cucumber-java:242.20224.159")
+        plugin("org.jetbrains.android:243.22562.218")
         bundledPlugin("com.intellij.java")
         bundledPlugin("org.jetbrains.kotlin")
+
 
         pluginVerifier()
         zipSigner()

@@ -1,5 +1,9 @@
 # Changelog
 
+### 242.2-androidStudio
+
+- Make compatible with Android Studio `2024.2.2`
+
 ### 243.1
 
 - Update Kotlin version to `2.1.0`

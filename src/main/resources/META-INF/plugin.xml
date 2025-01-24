@@ -24,7 +24,7 @@
 	<!--	todo https://youtrack.jetbrains.com/issue/IDEA-254030-->
 	<depends>com.intellij.modules.java</depends>
 	<depends optional="true" config-file="com.finanteq.plugins.idea.cucumber-kotlin-idea-plugin-withAndroid.xml">org.jetbrains.android</depends>
-
+	<depends>com.intellij.modules.androidstudio</depends>
 	<extensions defaultExtensionNs="org.jetbrains.kotlin">
 		<supportsKotlinPluginMode supportsK2="true"/>
 	</extensions>
